@@ -1,5 +1,5 @@
-
-module.exports.accounts = (ref1, ref2, props, data) => {
+//changed here
+ module.exports.accounts = (ref1, ref2, props, data) => {
     fetch('http://localhost:8000/accounts', {
         method:'POST',
         headers: {'Content-Type': 'application/json', 'Accept': 'application/text'},
@@ -34,6 +34,32 @@ module.exports.accounts = (ref1, ref2, props, data) => {
             ref2.current.classList.add('d-none')
             ref1.current.nextSibling.style.opacity=1
             props.history.push('/')
+        }, 1000)
+
+    })
+}
+
+module.exports.login =(props,data)=>{
+    fetch('http://localhost:8000/login',{
+        method:"POST",
+        headers: {'Content-Type': 'application/json', 'Accept': 'application/text'},
+        body: JSON.stringify(data)
+    })
+    .then((response)=>{
+      if(response.ok){
+          console.log("login successfull")
+          props.history.push('/home')
+      }  else{
+          throw Error(response.statusText)
+      }
+    })
+    .catch((err)=> {
+        console.log("login not successful",err)
+        //ref2.current.classList.remove('d-none')
+        setTimeout(()=>{
+            //ref2.current.classList.add('d-none')
+            //ref1.current.nextSibling.style.opacity=1
+            props.history.push('/login')
         }, 1000)
 
     })
