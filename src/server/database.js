@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize')
 const accounts = require('./models')
-const sequelize = new Sequelize('postgres://smriti:smriti@localhost:5432/smriti')
+const sequelize = new Sequelize('postgres://postgres:bhavesh@localhost:5432/guftagu')
 
 
 sequelize.authenticate()
@@ -9,6 +9,7 @@ sequelize.authenticate()
 
 const accountsModel = accounts(sequelize, Sequelize)
 console.log(accountsModel)
+
 
 module.exports =  accountsModel
 

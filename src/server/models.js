@@ -2,7 +2,7 @@ const bcrypt = require('bcrypt')
 
 module.exports = (sequelize, Sequelize) => {
     // to do: use hooks to convert password to a hash
-    return sequelize.define("accounts", {
+    let accounts=sequelize.define("accounts", {
         id:{
             type: Sequelize.INTEGER,
             primaryKey: true,
@@ -38,7 +38,17 @@ module.exports = (sequelize, Sequelize) => {
             beforeCreate: (account) => {
                 account.password = bcrypt.hashSync(account.password, 10)
             }
-        }
+        },
+        // instanceMethods:{
+        //     validPassword: function(password){
+        //         return bcrypt.compareSync(password,this.password)
+        //     }
+        // }
     }
     )
+    accounts.prototype.validPassword = function(password) {
+        return bcrypt.compareSync(password, this.password);
+        }
+        return accounts
+    
 }
