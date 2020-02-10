@@ -47,7 +47,7 @@ module.exports.login =(props,data)=>{
     })
     .then((response)=>{
       if(response.ok){
-          console.log("login successfull")
+          console.log("login successful")
           props.history.push('/home')
           return response.json()
       }  else{
@@ -55,8 +55,8 @@ module.exports.login =(props,data)=>{
       }
     })
     .then(res => {
-        // store in redux
-        props.dispatch({type:"login details", value:res})
+        // store in locatstorage
+        localStorage.setItem('login', JSON.stringify(res))
     })
     .catch((err)=> {
         console.log("login not successful",err)

@@ -67,6 +67,8 @@ module.exports.search = (req, res) => {
                 
             }
         })
-        .then(result => res.json({results:result}))
+        .then(result => {
+            res.json({results:result})
+        })
         .catch(err => console.log("Error searching for users: ", err))
     }
