@@ -1,6 +1,7 @@
 const Sequelize = require('sequelize')
 const accounts = require('./models')
-const sequelize = new Sequelize('postgres://postgres:bhavesh@localhost:5432/guftagu')
+// const sequelize = new Sequelize('postgres://postgres:bhavesh@localhost:5432/guftagu')
+const sequelize = new Sequelize('postgres://smriti:smriti@localhost:5432/smriti')
 
 
 sequelize.authenticate()

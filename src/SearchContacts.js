@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom'
 
 // no need to pass search results to parent
 const SearchContacts = (props) => {
-    const []
+    const [] = useState()
     return (
         <div className='search-contacts'>
             <div className='toolbar px-3'>
