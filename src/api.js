@@ -49,9 +49,14 @@ module.exports.login =(props,data)=>{
       if(response.ok){
           console.log("login successfull")
           props.history.push('/home')
+          return response.json()
       }  else{
           throw Error(response.statusText)
       }
+    })
+    .then(res => {
+        // store in redux
+        props.dispatch({type:"login details", value:res})
     })
     .catch((err)=> {
         console.log("login not successful",err)
@@ -63,4 +68,22 @@ module.exports.login =(props,data)=>{
         }, 1000)
 
     })
+}
+
+
+
+module.exports.search = (props, search) => {
+    console.log("inside search api.js", search)
+    fetch(`http://localhost:8000/search/${search}`)
+    .then((res) => res.json())
+    .then(res => {
+        console.log(res)
+        props.dispatch({type:"searched users", value:res.results})
+
+    })
+    .catch(err => {
+        console.log(err)
+        props.history.push('/home')
+    })
+
 }
