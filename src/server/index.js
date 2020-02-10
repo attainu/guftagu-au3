@@ -30,6 +30,7 @@ app.use(bodyParser.urlencoded({extended:false}))
 // }
 
 app.post('/accounts', controllers.accounts)
+app.get('/search/:search', controllers.search)
 
 app.post('/login',controllers.login)
 

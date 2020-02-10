@@ -1,4 +1,5 @@
 const accounts = require('./database')
+const { Op } = require('sequelize')
 
 module.exports.accounts = (req, res)=>{
     console.log("inside accounts api", req.body)
@@ -27,8 +28,9 @@ module.exports.accounts = (req, res)=>{
 
 })
 }
-    module.exports.login=(req,res)=>{
-        //console.log(data)
+
+module.exports.login=(req,res)=>{
+      //console.log(data)
       accounts.findOne({
               where:{
                   email:req.body.email
@@ -41,10 +43,7 @@ module.exports.accounts = (req, res)=>{
                   res.status(400).send('notok')
               }else{
                   res.status(200).send('ok')
-              }
-
-              
-             
+              }  
               
               //if(req.body.email==accounts.dataValues.email && req.body.password==accounts.dataValues.validPassword(password)){
                 //  res.send(200).send('ok')
@@ -57,3 +56,17 @@ module.exports.accounts = (req, res)=>{
               res.status(400).end()
           })
       } 
+
+module.exports.search = (req, res) => {
+        let search = req.params.search 
+        console.log(search)
+        accounts.findAll({
+            where : {
+                [Op.like]: {
+                    username: `%${search}%`
+                }
+            }
+        })
+        .then(result => res.json({results: result}))
+        .catch(err => console.log("Error searching for users: ", err))
+    }
