@@ -1,0 +1,64 @@
+.homepage{
+    display: flex;
+    width: 75%;
+    height: 96%;
+    background-color:white;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+
+.sidebar{
+    display: flex;
+    width: 30%;
+    flex-direction: column;
+    // border: 1px solid #ece5dd
+
+    
+}
+
+
+// p{
+//     font-size: 14px;
+// }
+
+
+
+
+.main{
+    display: flex;
+    width: 70%;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center
+}
+
+#phone{
+    height: 350px;
+    width: 295px;
+    border-radius: 50%;
+    opacity: .5;
+
+}
+
+
+
+
+
+@media only screen and (max-width:600px){
+    .main{
+        // width:0%
+        display: none
+    }
+
+    .sidebar, .homepage{
+        width: 100%
+    }
+
+    .homepage{
+        height: 100%
+    }
+
+    
+
+
+}

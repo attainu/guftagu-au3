@@ -1,4 +1,5 @@
 const accounts = require('./database')
+const { Op } = require('sequelize')
 
 module.exports.accounts = (req, res)=>{
     console.log("inside accounts api", req.body)
@@ -28,5 +29,19 @@ module.exports.accounts = (req, res)=>{
 })
 
 
-    }
+}
 
+
+module.exports.search = (req, res) => {
+    let search = req.params.search 
+    console.log(search)
+    accounts.findAll({
+        where : {
+            [Op.like]: {
+                username: `%${search}%`
+            }
+        }
+    })
+    .then(result => res.json({results: result}))
+    .catch(err => console.log("Error searching for users: ", err))
+}

@@ -12,6 +12,7 @@ app.use(cors())
 app.use(bodyParser.json())
 
 app.post('/accounts', controllers.accounts)
+app.get('/search/:search', controllers.search)
 
 
 

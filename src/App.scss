@@ -1,6 +1,7 @@
 #root, .App, body, html{
     height:100%;
     // background-color:#00bfa5
+    background: linear-gradient(#128C7E 0%, #128C7E 13%, #eeeeef 13%);
 }
 
 .App{
@@ -35,7 +36,7 @@
     text-decoration: none
 }
 
-input[type]{
+.signup-input{
     background-color: powderblue;
     border: none
 }
@@ -50,7 +51,8 @@ input[type]{
     // align-items: center;
     text-align: center;
     width: 320px;// 20%;
-    background-color: white
+    background-color: white;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .have-account, .signup{

@@ -83,9 +83,9 @@ const Signup = (props) => {
             <GoogleSignUp onSubmit={onSubmit} failure={failure}/>
             <hr/>
             <form className='form-group my-3' onChange={onChange} onSubmit={onSubmit}>
-                <input name='email' value={user.email} type='email' className="form-control mb-2" placeholder='Email' required/>
-                <input name='username' value={user.username} type='text' className="form-control mb-2" placeholder='Username' required/>
-                <input name='password' value={user.password} type='password' className="form-control mb-2" placeholder='Password' required/>
+                <input name='email' value={user.email} type='email' className="form-control mb-2 signup-input" placeholder='Email' required/>
+                <input name='username' value={user.username} type='text' className="form-control mb-2 signup-input" placeholder='Username' required/>
+                <input name='password' value={user.password} type='password' className="form-control mb-2 signup-input" placeholder='Password' required/>
                 <button className="btn btn-primary w-100 mb-3 sign-up-btn">Sign up</button>
                 <p><Link to='/policy' className='policy text-secondary'>By signing up, you agree to our<strong> Terms , Data Policy and Cookies Policy .</strong></Link></p>
             </form>
