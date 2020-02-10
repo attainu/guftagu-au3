@@ -25,6 +25,10 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.STRING,
             allowNull:false
         },
+        img:{
+            type: Sequelize.STRING,
+            defaultValue: 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSRpB9iJgSSs49SaW_wSr8bQWqSQ_C5u_jMg326JfvgsHXHNOJQ'
+        },
         token:{
             type: Sequelize.BOOLEAN,
             // values: ['true', 'false'],

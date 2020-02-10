@@ -1,5 +1,6 @@
 import React,{useState} from 'react';
 import {Link} from 'react-router-dom';
+import {connect} from 'react-redux';
 const fetch =  require('./api')
 const NoAccount = () => {    
     return <p className='have-account py-3'>Don't have an account? <Link to='/'>Sign up</Link></p>
@@ -51,4 +52,4 @@ function Login(props){
         </div>)}
 
 
-export default Login
+export default connect()(Login)
