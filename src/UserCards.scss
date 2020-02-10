@@ -1,0 +1,20 @@
+.user-cards{
+    height: 50px
+}
+
+.list-group-item{
+    display: flex;
+    flex-direction: row;
+    align-items: center
+
+}
+
+img{
+    height: 40px;
+    width: 45px;
+    border-radius: 50%;
+}
+
+p{
+    color: #128C7E
+}
