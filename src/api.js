@@ -56,7 +56,7 @@ module.exports.login =(props,data)=>{
     })
     .then(res => {
         // store in locatstorage
-        localStorage.setItem('login', JSON.stringify(res))
+        sessionStorage.setItem('login', JSON.stringify(res))
     })
     .catch((err)=> {
         console.log("login not successful",err)

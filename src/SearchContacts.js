@@ -10,7 +10,7 @@ const SearchContacts = (props) => {
     const [state, setState] = useState({input:'', id:'', user:{}})
 
     useEffect(()=>{
-        let user = localStorage.getItem('login')
+        let user = sessionStorage.getItem('login')
         console.log(user)
         if(user){
             setState(Object.assign({}, state, {user:JSON.parse(user)}))
