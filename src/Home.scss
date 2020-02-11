@@ -50,6 +50,19 @@
         display: none
     }
 
+    .user-selected-sidebar{
+        display: none;
+    }
+
+    .toolbar{
+        justify-content: space-between;
+    }
+
+    // p{
+    //     color: white
+    // }
+
+
     .sidebar, .homepage{
         width: 100%
     }
