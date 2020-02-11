@@ -15,7 +15,7 @@
 
 .toolbar, .search{
     display: flex;
-    justify-content: space-between;
+    // justify-content: space-between;
     align-items: center;
     height: 6%
 }
@@ -51,10 +51,12 @@ h4{
 
 
 #pic{
-    height: 40px;
+    display: flex;
+    height: 60%;
     width: 45px;
     border-radius: 50%;
 }
+
 
 
 @media only screen and (max-width:600px){
