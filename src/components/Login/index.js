@@ -1,7 +1,9 @@
 import React,{useState} from 'react';
 import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
-const fetch =  require('./api')
+const fetch =  require('../../api')
+
+
 const NoAccount = () => {    
     return <p className='have-account py-3'>Don't have an account? <Link to='/'>Sign up</Link></p>
 }
@@ -36,8 +38,8 @@ function Login(props){
 
 
     return (
-        <div className="signup-page">
-            <div className='signup mb-3 px-5 py-4'>
+        <div className="sign-up">
+            <div className='sign-up-box mb-3 px-5 py-4'>
                 <h1 className='name mb-4'>Guftagu</h1>
                 <hr/>
                 <form className='form-group my-3' onSubmit={onSubmit}>​
