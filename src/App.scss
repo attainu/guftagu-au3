@@ -16,6 +16,10 @@
 
 // }
 
+.name{
+    margin-top:40px
+}
+
 .sign-up-success{
     position: absolute;
     // top:5%;
@@ -32,16 +36,30 @@
 
 }
 
+.google-login{
+    width: 250px;
+    border-radius: 20px;
+}
+
+.form-group{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .policy, .policy:hover, .policy:focus{
     text-decoration: none
 }
 
 .signup-input{
-    background-color: powderblue;
-    border: none
+    width: 250px;
+    // background-color: powderblue;
+    // border: none
 }
 
 .sign-up-btn{
+    margin-bottom: 40px;
+    width: 250px;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 2px 2px 0px, rgba(0, 0, 0, 0.24) 0px 0px 1px 0px
 }
 
@@ -50,7 +68,9 @@
     // flex-direction: column;
     // align-items: center;
     text-align: center;
-    width: 320px;// 20%;
+    border-radius: 20px;
+    width: 600px;// 20%;
+    height: 800px;
     background-color: white;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
@@ -61,14 +81,17 @@
 
 
 @media only screen and (max-width:600px){
-    // .signup-page{
-    //     width: 80%
-    // }
+    .signup-page{
+        height: 100%
+    }
     .sign-up-success{
         height: 10%
         // width:50%;
         // top: 40%;
         // left:25%;
+    }
+    .name{
+        margin-top: 40px;
     }
 }
 
