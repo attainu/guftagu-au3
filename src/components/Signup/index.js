@@ -1,13 +1,10 @@
 import React, {useState} from 'react';
 import GoogleLogin from 'react-google-login';
 import {Link} from 'react-router-dom';
+import HaveAccount from '../HaveAccount'
 import './Signup.scss';
 const fetch = require('../../api')
 
-
-const HaveAccount = () => {
-    return <div><p className='have-account py-3'>Have an account? <Link to='/login'>Log in</Link></p></div>
-}
 
 const GoogleSignUp = (props) => {
     return (<GoogleLogin className='google-login mb-3 form-control bg-primary text-white border-0'
@@ -100,7 +97,7 @@ const Signup = (props) => {
                 </p>
             </form>
         </div>
-        <HaveAccount/>
+        <HaveAccount link='Log In' text="Have an account?" redirect='/login' />
     </div>
     </div>)
 }
