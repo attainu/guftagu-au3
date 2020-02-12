@@ -1,14 +1,14 @@
 import React, { useEffect } from 'react'; 
-import ChatContent from './ChatContent.js';
+import ChatPanel from '../ChatPanel';
 import {connect} from 'react-redux';
-import HomeWallpaper from './HomeWallpaper';
+import HomeWallpaper from '../Wallpaper';
 
 
 const LandingPage = (props) => {
 
     useEffect(()=>{
         if(props.selectedChat){
-            props.addClass('user-selected-sidebar')
+            props.addClass('chatting-with')
         }
     })
     return (
@@ -16,7 +16,7 @@ const LandingPage = (props) => {
     <>
     {props.selectedChat
     ?
-    <ChatContent img={props.selectedChat.img} username={props.selectedChat.username} />
+    <ChatPanel img={props.selectedChat.img} username={props.selectedChat.username} />
     :
     <HomeWallpaper/>
 

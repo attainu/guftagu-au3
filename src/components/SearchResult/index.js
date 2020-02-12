@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import './SearchContactsContainer.scss';
+import './SearchResult.scss';
 
 
 const SearchContactsContainer = (props) => {
@@ -21,7 +21,7 @@ const SearchContactsContainer = (props) => {
     }
 
     return (
-    <div className='w-100 user-cards'>
+    <div className='w-100 search-result'>
         <ul class="list-group list-group-flush">
             <li className="list-group-item"><p className='mb-0'>CHATS</p></li>
         </ul>

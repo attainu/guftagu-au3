@@ -1,9 +1,9 @@
 import React, {useState, useEffect} from 'react';
-import './SearchContacts.scss';
-import Toolbar from './Toolbar';
+import './Search.scss';
+import Toolbar from '../Toolbar';
 import {connect} from 'react-redux';
-import SearchContactsContainer from './SearchContactsContainer';
-const fetch = require('./api')
+import SearchResult from '../SearchResult';
+const fetch = require('../../api')
 
 // no need to pass search results to parent
 const SearchContacts = (props) => {
@@ -35,16 +35,16 @@ const SearchContacts = (props) => {
 
     return (
         
-        <div className='search-contacts'>
+        <div className='search'>
             <Toolbar redirectTo='/home/profile' img={state.user && state.user.img}/>
-            <div className='search'>
-                <img className='ml-2 mr-3' id='search' src='https://cdn1.iconfinder.com/data/icons/hawcons/32/698956-icon-111-search-512.png'></img>
+            <div className='searchbox'>
+                <img className='ml-2 mr-3' id='search-icon' src='https://cdn1.iconfinder.com/data/icons/hawcons/32/698956-icon-111-search-512.png'></img>
                 <input onChange={(e)=> onChange(e)} className='input-contact mb-0 pl-5' value={state.input} type='text' placeholder='           Search or start new chat'></input>
             </div>
 
             {typeof(props.search)==='object'
             ?
-            <SearchContactsContainer results={props.search}/>
+            <SearchResult results={props.search}/>
             :
             <div></div>}
 
