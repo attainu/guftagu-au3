@@ -5,8 +5,18 @@ const fetch =  require('./api')
 const NoAccount = () => {    
     return <p className='have-account py-3'>Don't have an account? <Link to='/'>Sign up</Link></p>
 }
-function Login(props){ 
+const Alert = (props) => {
+    return (
+        <div ref={props.refx} className={`sign-up-success p-3 d-none ${props.class}`}>
+            <h6>{props.header} {props.text}</h6>
+        </div>)
 
+}
+function Login(props){ 
+    let refSuccess=React.createRef()
+    let refFail=React.createRef()
+
+    
     const [user,setUser]=useState({email:'',password:''})
 
      // const onChange = (e) => {​
@@ -30,13 +40,16 @@ function Login(props){
 
     data = {email, password}
     console.log(data)
-    fetch.login(props, data)
+    fetch.login(refSuccess,refFail,props, data)
         
 }
 
 
     return (
         <div className="signup-page">
+        <Alert refx={refFail} class='alert alert-danger' header='Oops!' text='Email or Password is Incorrect' />
+        <Alert refx={refSuccess} class='alert alert-success' header='Login Successful!' text='Thanks! Enjoy Your Texting' />
+
             <div className='signup mb-3 px-5 py-4'>
                 <h1 className='name mb-4'>Guftagu</h1>
                 <hr/>

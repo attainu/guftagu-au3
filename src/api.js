@@ -39,7 +39,7 @@
     })
 }
 
-module.exports.login =(props,data)=>{
+module.exports.login =(refSuccess,refFail,props,data)=>{
     fetch('http://localhost:8000/login',{
         method:"POST",
         headers: {'Content-Type': 'application/json', 'Accept': 'application/text'},
@@ -47,8 +47,14 @@ module.exports.login =(props,data)=>{
     })
     .then((response)=>{
       if(response.ok){
+        refSuccess.current.classList.remove('d-none')
           console.log("login successful")
-          props.history.push('/home')
+          setTimeout(()=>{
+            refSuccess.current.classList.add('d-none')
+            refSuccess.current.nextSibling.style.opacity=1
+            props.history.push('/home')
+        }, 500)
+          
           return response.json()
       }  else{
           throw Error(response.statusText)
@@ -60,12 +66,12 @@ module.exports.login =(props,data)=>{
     })
     .catch((err)=> {
         console.log("login not successful",err)
-        //ref2.current.classList.remove('d-none')
+        refFail.current.classList.remove('d-none')
         setTimeout(()=>{
-            //ref2.current.classList.add('d-none')
-            //ref1.current.nextSibling.style.opacity=1
+            refFail.current.classList.add('d-none')
+            refSuccess.current.nextSibling.style.opacity=1
             props.history.push('/login')
-        }, 1000)
+        }, 5000)
 
     })
 }
@@ -86,4 +92,38 @@ module.exports.search = (props, search) => {
         props.history.push('/home')
     })
 
+}
+
+// module.exports.image=(props,FormData)=>{
+
+//     fetch(`http://localhost:8000/profileImage/${FormData}`,{
+//         method:'POST',
+//         headers:{'Content-Type': 'multipart/form-data'},
+//         body:JSON.stringify(FormData)
+//         .then(res=>res.json())
+//         .catch((err)=>{
+//             if (err.response.status === 500) {
+//                 console.log('There was a problem with the server');
+//               }else{
+//                 console.log(err.response.data.msg);
+//               }
+
+//         })
+//     })
+// }
+
+module.exports.editName=(updatedata)=>{
+fetch(`https://localhost8000/editName`,{
+    method:'PUT',
+    headers:{'Content-Type': 'application/json', 'Accept': 'application/text'},
+    body:JSON.stringify(updatedata)
+})
+.then(response=>{
+    if(response.updated){
+        return response.json()
+    }
+})
+.catch(err=>{
+      console.log("username no updated",err)
+})
 }

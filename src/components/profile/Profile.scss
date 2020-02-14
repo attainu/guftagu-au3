@@ -3,7 +3,23 @@
     flex-direction: column;
 }
 
-
+ #icon{
+    position: relative;
+    left:250px;
+    bottom:35px;
+}
+#Name{
+    color: #128C7E
+}
+.card{
+    position: relative;
+    top:100px;
+}
+small{
+    position: relative;
+    left:20px;
+    top:130px;
+}
 h6{
     font-size: 20px
 }

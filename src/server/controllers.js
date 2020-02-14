@@ -72,3 +72,41 @@ module.exports.search = (req, res) => {
         })
         .catch(err => console.log("Error searching for users: ", err))
     }
+
+// //profile image    
+// module.exports.uploads= (req, res) => {
+//     if (req.files === null) {
+//       return res.status(400).json({ msg: 'No file uploaded' });
+//     }
+  
+//     const file = req.files.file;
+//     accounts.create({
+//         img:file
+//     })
+  
+//     file.mv(`${__dirname}/public/uploads/${file.name}`, err => {
+//       if (err) {
+//         console.error(err);
+//         return res.status(500).send(err);
+//       }
+  
+//       res.json({ fileName: file.name, filePath: `/uploads/${file.name}` });
+//     });
+//   }
+
+module.exports.editName=(req,res)=>{
+    const username=req.body.username
+    accounts.findOne({
+        where:{
+            username:username
+        }.update({username})
+    }).then(()=>{
+        res.status(200).send('updated')
+    })
+    .then(updatedata=>{
+        res.json(updatedata)
+    })
+    .catch((err)=>{
+        console('error while updating',err)
+    })
+}

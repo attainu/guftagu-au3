@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import './Home.scss';
-import Profile from './Profile';
+import Profile from './components/profile/Profile';
 import SearchContacts from './SearchContacts';
 import LandingPage from './LandingPage';
 import {Route, Redirect} from 'react-router-dom';
