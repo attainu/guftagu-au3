@@ -3,41 +3,39 @@ import {connect} from 'react-redux';
 import './SearchResult.scss';
 
 
-const SearchContactsContainer = (props) => {
-    console.log("inside user cards:", props.results)
+const SearchResult = ({results, display, dispatch}) => {
+    console.log("inside search results :", results)
 
-    const onClick = e => {
-        console.log(e.target)
-        const {nodeName} = e.target 
-        if(nodeName==='LI'){
-            e.target.style.background = '#eeeeef'
-            let img = e.target.children[0].src 
-            let username = e.target.children[1].innerText
-            let email = e.target.key
-            console.log(username, img)
-            props.dispatch({type:"get-chat-content-for-selected-chat", value: {img, username, email}})
-        }
+    const onClick = (e, result) => {
+        // console.log(e.target)
+        // const {nodeName} = e.target 
+        // if(nodeName==='LI'){
+        e.target.style.background = '#eeeeef'
+        console.log(result)
+        dispatch({type:"get-chat-content-for-selected-chat", value: result})
+        // }
 
     }
 
     return (
     <div className='w-100 search-result'>
-        <ul class="list-group list-group-flush">
+        <ul className={`list-group list-group-flush ${display}`}>
             <li className="list-group-item"><p className='mb-0'>CHATS</p></li>
         </ul>
-        <ul onClick={onClick} class="list-group list-group-flush">
-            {props.results.length!==0
+        <ul className="list-group list-group-flush">
+            {results.length!==0
             ? 
-            props.results.map((result, key) => {
+            results.map((result, key) => {
+                const {email, username, img} = result
                 return (
-                    <li key={result.email} className="list-group-item">
-                        <img className='mr-5' src={result.img}/>
-                        <p className='mb-0'>{result.username}</p>
+                    <li onClick={e => onClick(e, result)} key={email} className="list-group-item">
+                        <img className='mr-5' src={img} alt='avatar'/>
+                        <p className='mb-0'>{username}</p>
                     </li>
                 ) 
             })
             : 
-            <li className="mt-4 list-unstyled text-center text-secondary">No users found</li>
+            <li className={`mt-4 list-unstyled text-center text-secondary ${display}`}>No users found</li>
             }
         </ul>
     </div>
@@ -45,10 +43,7 @@ const SearchContactsContainer = (props) => {
     )
 }
 
-const stateMapToProps = state => {
 
-}
-
-export default connect()(SearchContactsContainer)
+export default connect()(SearchResult)
 
 

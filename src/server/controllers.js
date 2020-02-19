@@ -1,16 +1,55 @@
-const accounts = require('./database')
+const tables = require('./database')
+const createOrUpdate = require('./utility')
+// console.log("all tables: ", tables) //it was slow man :O
 const {Op} = require('sequelize')
 
+module.exports.storeChats = (to, from, text)=>{
+    console.log("inside chats controller")
+    // tables.accounts.findOne({
+    //     where:{
+    //         username:to
+    //     }
+        
+    // })
+    // .then(instance => {
+        createOrUpdate(tables, to+from, to, from, text, tables.sequelize)
+    
+}
+
+
+module.exports.findChats = async (nickname, cb)=>{
+    console.log(nickname)
+    chats = await tables.chats.findOne({where:{nickname}})
+
+    cb(!chats? []: chats.dataValues.text)
+
+    // .then(data => {
+    //     console.log("getting stored text", data)
+    //     prevChats = !data? []: data.dataValues.text 
+
+    // })
+    // .catch(err => {console.log(err); return []})
+}
+
+
+
+
+
+
 module.exports.accounts = (req, res)=>{
-    console.log("inside accounts api", req.body)
-    accounts.sync()
+    console.log("inside accounts api", req.body.email)
+    tables.accounts.sync()
     .then((instance) => {
         instance.create({
             email:req.body.email,
             username:req.body.username, 
             password:req.body.password,
             token:req.body.token
-        })
+        }//,
+        // {
+        //     include: [{model:tables.chats, as:'chats'}]
+        // }
+        )
     .then(data=>{
         // console.log(data)
         // const error = null 
@@ -31,7 +70,7 @@ module.exports.accounts = (req, res)=>{
 
 module.exports.login=(req,res)=>{
       //console.log(data)
-      accounts.findOne({
+      tables.accounts.findOne({
               where:{
                   email:req.body.email
               }
@@ -45,12 +84,6 @@ module.exports.login=(req,res)=>{
                 //   delete data[password]
                   res.json(data)
               }  
-              
-              //if(req.body.email==accounts.dataValues.email && req.body.password==accounts.dataValues.validPassword(password)){
-                //  res.send(200).send('ok')
-              //}else if(accounts.validPassword(password)){
-                //res.send(200).send('passwordok')
-              //}
           })
           .catch(err=>{
             res.statusMessage = err.name
@@ -61,7 +94,7 @@ module.exports.login=(req,res)=>{
 module.exports.search = (req, res) => {
         let search = req.params.search 
         console.log("inside search controller:", search)
-        accounts.findAll({
+        tables.accounts.findAll({
             where : { 
                 username: {[Op.substring]:search}
                 
@@ -72,3 +105,21 @@ module.exports.search = (req, res) => {
         })
         .catch(err => console.log("Error searching for users: ", err))
     }
+
+
+module.exports.contacts = (req, res) => {
+    let from = req.params.from
+    console.log("inside contacts controller:", from)
+    tables.chats.findAll({
+        where: {from},
+        // include: [{model:tables.accounts, as:'accounts'}]
+        include: [tables.accounts]
+    })
+    .then(result => {
+        // [{}, {}, {}] ..etc
+        // .get() gets the dataValues .. for obj, not arr
+        console.log("inside contacts controller results") // result.get() is not a func ..
+        res.json({results:result?result.map(row=>{console.log(row.get().account.get()); return row.get().account.get()}):[]}) // ['sm2', 'smriti4', 'smriti3']
+    })
+    .catch(err => console.log("Error getting contacts for: ", from, "-", err))
+}

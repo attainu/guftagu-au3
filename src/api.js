@@ -87,3 +87,17 @@ module.exports.search = (props, search) => {
     })
 
 }
+
+
+module.exports.contacts = (dispatch, from) => {
+    fetch(`http://localhost:8000/contacts/${from}`)
+    .then(res => res.json())
+    .then(res => {
+        console.log(res)
+        dispatch({type:"contacts", value:res.results})
+    })
+    .catch(err => {
+        console.log(err)
+        
+    })
+}
