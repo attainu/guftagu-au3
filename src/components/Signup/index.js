@@ -73,7 +73,7 @@ const Signup = (props) => {
 
     return (
     <div className='sign-up'>
-    <img className='whatsapp' src='https://www.stickpng.com/assets/images/580b57fcd9996e24bc43c543.png'></img>
+    <img className='whatsapp' alt='whatsapp' src='https://www.stickpng.com/assets/images/580b57fcd9996e24bc43c543.png'></img>
     <div className='sign-up-box'>
         <Alert refx={ref2} class='alert alert-danger' header='Oops!' text='Sign up Unsuccessful! Please try again' />
         <Alert refx={ref1} class='alert alert-success' header='Sign Up Successful!' text='Thanks! Your account has been successfully created' />

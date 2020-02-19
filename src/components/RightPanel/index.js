@@ -1,36 +1,25 @@
 import React, { useEffect } from 'react'; 
 import ChatPanel from '../ChatPanel';
 import {connect} from 'react-redux';
-import HomeWallpaper from '../Wallpaper';
+import Wallpaper from '../Wallpaper';
 
 
-const LandingPage = (props) => {
+const RightPanel = ({room, addClass}) => {
 
     useEffect(()=>{
-        if(props.selectedChat){
-            props.addClass('chatting-with')
-        }
-    })
-    return (
-    
-    <>
-    {props.selectedChat
-    ?
-    <ChatPanel img={props.selectedChat.img} username={props.selectedChat.username} />
-    :
-    <HomeWallpaper/>
-
-    }
+        console.log(room);
+        if(room) addClass('chatting');
         
-    </>)
+    })
+    return <>{ (room) ? <ChatPanel/> : <Wallpaper/> }</>
 
 }
 
 const stateMap = (state) => {
     return {
-        selectedChat: state.selectedChat
+        room: state.room
     }
 
 }
 
-export default connect(stateMap)(LandingPage)
+export default connect(stateMap)(RightPanel)
