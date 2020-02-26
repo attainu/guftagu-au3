@@ -94,36 +94,47 @@ module.exports.search = (props, search) => {
 
 }
 
-// module.exports.image=(props,FormData)=>{
+module.exports.image=(props,data)=>{
 
-//     fetch(`http://localhost:8000/profileImage/${FormData}`,{
-//         method:'POST',
-//         headers:{'Content-Type': 'multipart/form-data'},
-//         body:JSON.stringify(FormData)
-//         .then(res=>res.json())
-//         .catch((err)=>{
-//             if (err.response.status === 500) {
-//                 console.log('There was a problem with the server');
-//               }else{
-//                 console.log(err.response.data.msg);
-//               }
+    fetch(`http://localhost:8000/upload`,{
+        method:'POST',
+        headers:{'Content-Type': 'multipart/form-data'},
+        body:JSON.stringify(data)
+        .then(res=>res.json())
+        .then((response)=>{
+            alert("the picture has been updated")
+        })
+        .catch((err)=>{
+            if (err.response.status === 500) {
+                console.log('There was a problem with the server');
+              }else{
+                console.log(err.response.data.msg);
+              }
 
-//         })
-//     })
-// }
+        })
+    })
+}
 
-module.exports.editName=(updatedata)=>{
-fetch(`https://localhost8000/editName`,{
+//edit and update username
+module.exports.editName=(props,data)=>{
+fetch(`http://localhost:8000/editName/${JSON.parse(sessionStorage.getItem('login')).email}`,{
     method:'PUT',
     headers:{'Content-Type': 'application/json', 'Accept': 'application/text'},
-    body:JSON.stringify(updatedata)
+    body:JSON.stringify(data)
 })
 .then(response=>{
-    if(response.updated){
-        return response.json()
+    if(response.data){
+        console.log(data)
+         response.json()
     }
+})
+
+.then(response => {
+    // store in locatstorage
+    sessionStorage.setItem('login', JSON.stringify(response))
 })
 .catch(err=>{
       console.log("username no updated",err)
+      console.log(JSON.parse(sessionStorage.getItem('login')).email)
 })
 }
