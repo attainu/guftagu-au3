@@ -138,3 +138,16 @@ fetch(`http://localhost:8000/editName/${JSON.parse(sessionStorage.getItem('login
       console.log(JSON.parse(sessionStorage.getItem('login')).email)
 })
 }
+
+module.exports.contacts = (dispatch, from) => {
+    fetch(`http://localhost:8000/contacts/${from}`)
+    .then(res => res.json())
+    .then(res => {
+        console.log(res)
+        dispatch({type:"contacts", value:res.results})
+    })
+    .catch(err => {
+        console.log(err)
+        
+    })
+}

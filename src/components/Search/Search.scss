@@ -1,4 +1,4 @@
-.search-contacts{
+.search{
     display: flex;
     width: 100%;
     height: 100%;
@@ -7,22 +7,14 @@
 }
    
 
-.search, .toolbar{
-    height: 8%;
-    border:none;
-}
-
-
-.toolbar, .search{
+.searchbox{
     display: flex;
-    // justify-content: space-between;
     align-items: center;
-    height: 6%
+    height: 6%;
+    justify-content: flex-start;
+    border-bottom: 1px solid #eeeeef
 }
 
-.toolbar{
-    background-color:#eeeeef
-}
 
 
 .input-contact{
@@ -36,13 +28,8 @@ h4{
     color: lightgrey
 }
 
-.search{
-    justify-content: flex-start;
-    border-bottom: 1px solid #eeeeef
 
-}
-
-#search{
+#search-icon{
     position: absolute;
     height: 25px;
     width: 25px;
@@ -61,20 +48,17 @@ h4{
 
 @media only screen and (max-width:600px){
 
-    .input-contact, .search, .toolbar{
+    .input-contact, .searchbox{
         background-color: #128C7E;
         color: white
 
     }
 
-
-    .search, .toolbar{
+    .searchbox{
         width: 100%
     }
 
-    // p{
-    //     font-size: 20px
-    // }
+   
 
     .input-contact:focus{
         background-color: white;
