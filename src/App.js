@@ -17,7 +17,6 @@ function App() {
         <BrowserRouter>
           <Route exact path='/' component={Signup}></Route>
           <Route path="/login" component={Login}></Route>
-          {/* <Route path='/policy' component={Policy}></Route> */}
           {sessionStorage.getItem('login')? <Route path='/home' component={Home}></Route>:<Redirect to='/'></Redirect>}
         </BrowserRouter>
       

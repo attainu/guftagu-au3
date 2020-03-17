@@ -1,11 +1,12 @@
-require("dotenv").config()
+require('dotenv').config()
 const express = require('express')
 const cors = require('cors')
 const controllers = require('./controllers')
-const cloudinary=require('cloudinary');
-const multer= require('multer');
+const multipart= require('connect-multiparty')
 const bodyParser = require('body-parser')
+
 const app = express() 
+const multipartMiddleware=multipart()
 
 // -------------------
 const http = require('http')
@@ -19,27 +20,6 @@ const PORT = 8000
  // body parser
 app.use(cors())
 app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({extended:true}))
-
-//cloudinary config code
-cloudinary.config({
-  cloud_name:process.env.CLOUD_NAME,
-  api_id:process.env.API_ID,
-  api_secret:process.env.API_SECRET
-})
-
-//image upload
-const upload = multer({
-  storage: multer.diskStorage({}),
-  fileFilter:(req,file,cb)=>{
-    if(!file.mimetype.match(/jpe|jpeg|png$i/)){
-      cb(new Error('File is not supported'),false)
-    }
-    cb(null,true)
-  },
-  limits:{fileSize: 1000000},
-})
-
 app.use(bodyParser.urlencoded({extended:false}))
 
 
@@ -47,6 +27,8 @@ app.post('/accounts', controllers.accounts)
 app.get('/search/:search', controllers.search)
 app.post('/login',controllers.login)
 app.get('/contacts/:from', controllers.contacts)
+app.put('/editName/:email',controllers.editName)
+app.put('/update/picture/:email', multipartMiddleware,controllers.picture)
 
 let users = {}
 
@@ -123,7 +105,6 @@ io.on('connection', (socket)=> {
     // socket.on('storeChats', controllers.save)
 
 
- app.put('/editName/:email',controllers.editName) 
     socket.on('disconnect', () => {
         console.log("user is offline now")
     })
@@ -131,7 +112,8 @@ io.on('connection', (socket)=> {
 // ----------------------------------------
 
 
-app.post('/upload',upload.single('myImage'),controllers.upload)
+
+
 
 // app -> server
 server.listen(PORT, ()=>{

@@ -94,48 +94,35 @@ module.exports.search = (props, search) => {
 
 }
 
-module.exports.image=(props,data)=>{
-
-    fetch(`http://localhost:8000/upload`,{
-        method:'POST',
-        headers:{'Content-Type': 'multipart/form-data'},
-        body:JSON.stringify(data)
-        .then(res=>res.json())
-        .then((response)=>{
-            alert("the picture has been updated")
-        })
-        .catch((err)=>{
-            if (err.response.status === 500) {
-                console.log('There was a problem with the server');
-              }else{
-                console.log(err.response.data.msg);
-              }
-
-        })
-    })
-}
-
 //edit and update username
-module.exports.editName=(props,data)=>{
-fetch(`http://localhost:8000/editName/${JSON.parse(sessionStorage.getItem('login')).email}`,{
+module.exports.editName=(props,newdata)=>{
+    let login=JSON.parse(sessionStorage.getItem('login'))
+    console.log(login.username)
+fetch(`http://localhost:8000/editName/${login.email}`,{
     method:'PUT',
     headers:{'Content-Type': 'application/json', 'Accept': 'application/text'},
-    body:JSON.stringify(data)
+    body:JSON.stringify(newdata)
 })
 .then(response=>{
     if(response.data){
-        console.log(data)
-         response.json()
+    response.json()
     }
 })
-
+.then(response=>{
+    console.log(response.data)
+})
 .then(response => {
     // store in locatstorage
-    sessionStorage.setItem('login', JSON.stringify(response))
+    console.log(login.username)
+    sessionStorage.setItem('login', JSON.stringify(response.data))
+   // console.log(login.username)
+    setTimeout(()=>{
+        props.history.push('/home');
+    },500)
 })
 .catch(err=>{
       console.log("username no updated",err)
-      console.log(JSON.parse(sessionStorage.getItem('login')).email)
+      //console.log(JSON.parse(sessionStorage.getItem('login')).email)
 })
 }
 
@@ -143,7 +130,6 @@ module.exports.contacts = (dispatch, from) => {
     fetch(`http://localhost:8000/contacts/${from}`)
     .then(res => res.json())
     .then(res => {
-        console.log(res)
         dispatch({type:"contacts", value:res.results})
     })
     .catch(err => {

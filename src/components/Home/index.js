@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import './Home.scss';
-import Profile from '../Profile';
+import Profile from '../profile';
+//import Logout from "../Logout";
 import Search from '../Search';
 import {connect} from 'react-redux';
 import RightPanel from '../RightPanel';

@@ -1,7 +1,13 @@
 const Sequelize = require('sequelize')
+const models = require('./models')
+//const db = new Sequelize('postgres://postgres:bhavesh@localhost:5432/guftagu')
+//const db = new Sequelize('postgres://smriti:smriti@localhost:5432/smriti')
+const db=new Sequelize(process.env.DB_URI,{ logging:false })
+
 db.authenticate()
 .then(() => console.log('database connection made!'))
 .catch(() => console.log("connection to db failed!"))
+
 // models.chats
 
 const accountsModel = models.accounts(db) 
@@ -39,5 +45,3 @@ sync()
 
 
 // module.exports =  accountsModel
-
-

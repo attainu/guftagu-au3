@@ -2,6 +2,7 @@ const tables = require('./database')
 const createOrUpdate = require('./utility')
 // console.log("all tables: ", tables) //it was slow man :O
 const {Op} = require('sequelize')
+const cloudinary=require('cloudinary').v2
 
 module.exports.storeChats = (to, from, text)=>{
     console.log("inside chats controller")
@@ -118,38 +119,48 @@ module.exports.contacts = (req, res) => {
     .then(result => {
         // [{}, {}, {}] ..etc
         // .get() gets the dataValues .. for obj, not arr
-        console.log("inside contacts controller results") // result.get() is not a func ..
-        res.json({results:result?result.map(row=>{console.log(row.get().account.get()); return row.get().account.get()}):[]}) // ['sm2', 'smriti4', 'smriti3']
+        //console.log("inside contacts controller results") // result.get() is not a func ..
+        res.json({results:result?result.map(row=>{
+            //console.log(row.get().account.get()); 
+            return row.get().account.get()}):[]}) // ['sm2', 'smriti4', 'smriti3']
     })
     .catch(err => console.log("Error getting contacts for: ", from, "-", err))
 }
 
 module.exports.editName=(req,res)=>{
-    accounts.update(
+    tables.accounts.update(
         {username:req.body.username},
             {where:
                 {email:req.params.email}
     })
     .then((data)=>{
+        console.log("changed name",dataValues)
             res.status(200).send('data') 
-            console.log(data)
+            //console.log(data)
         })
     .catch((err)=>{
         res.status(422).send(err)
     })
 }
 
-
-module.exports.upload= async (req,res)=>{
-    const result= await cloudinary.v2.uploader.upload(req.file.path)
-    accounts.create({
-        img:result.secure_url
-    })
-    .then((filename)=>{
-        res.json(filename)
-    })
-
-.catch((err)=>{
-    console.log(err, "file not uploaded")
+module.exports.picture=(async(req, res) => {
+    cloudinary.uploader.upload(
+        req.files.propic.path,
+        {
+            folder: "profile_picture/",
+            cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+            api_key: process.env.CLOUDINARY_API_KEY,
+            api_secret: process.env.CLOUDINARY_API_SECRET
+        },
+        async function(error, result) {
+            if(error) {
+                return res.status(500).send(error);
+            }
+            await tables.accounts.update(
+                {img: result.secure_url},
+                {where: {email:req.params.email}}
+            );
+            res.status(200).send();
+        }
+    )
 })
-}

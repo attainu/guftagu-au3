@@ -1,11 +1,12 @@
 import React,{useState} from 'react';
 import HaveAccount from '../HaveAccount';
 import './Login.scss'
+//import {Link} from "react-router-dom"
 import {connect} from 'react-redux';
 const fetch =  require('../../api')
-const NoAccount = () => {    
-    return <p className='have-account py-3'>Don't have an account? <Link to='/'>Sign up</Link></p>
-}
+// const NoAccount = () => {    
+//     return <p className='have-account py-3'>Don't have an account? <Link to='/'>Sign up</Link></p>
+// }
 const Alert = (props) => {
     return (
         <div ref={props.refx} className={`sign-up-success p-3 d-none ${props.class}`}>
@@ -41,6 +42,7 @@ function Login(props){
 
     data = {email, password}
     console.log(data)
+    refSuccess.current.nextSibling.style.opacity=0.1
     fetch.login(refSuccess,refFail,props, data)
         
 }
@@ -56,11 +58,11 @@ function Login(props){
                 <form className='form-group my-3' onSubmit={onSubmit}>​
                     <input name='email' value={user.email} type='text' onChange={e=>setUser({...user,email:e.target.value})} className="form-control mb-2" placeholder='email' required/>​
                     <input name='password' value={user.password} type='password' onChange={(e)=>setUser({...user,password:e.target.value})} className="form-control mb-2" placeholder='Password' required/>
-                    <button className="btn btn-primary w-100 mb-3 sign-up-btn">login</button>
+                    <button className="btn btn-primary login-btn">login</button>
                 </form>​
-
-            <HaveAccount link='Sign Up' text='Dont have an account?  ' redirect='/' />
+                <HaveAccount id="loginlink" link='Sign Up' text='Dont have an account?  ' redirect='/' />
         </div>
+      
         </div>)}
 
 
