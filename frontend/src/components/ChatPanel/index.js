@@ -7,6 +7,7 @@ import './ChatPanel.scss'
 
 const io = require('socket.io-client');
 const ENDPOINT = 'localhost:8000';
+//const ENDPOINT=' https://guftagu-b.herokuapp.com'
 const login = sessionStorage.getItem('login')? JSON.parse(sessionStorage.getItem('login')): ''
 // it re-connects on every refresh. => put inside componenet def. or put it in a diff useEffect. YES!
 // let socket = io(ENDPOINT); 

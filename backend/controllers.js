@@ -1,4 +1,4 @@
-const tables = require('./database')
+const tables =require('./database')
 const createOrUpdate = require('./utility')
 // console.log("all tables: ", tables) //it was slow man :O
 const {Op} = require('sequelize')

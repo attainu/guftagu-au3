@@ -1,10 +1,10 @@
 require('dotenv').config()
 const express = require('express')
 const cors = require('cors')
-const controllers = require('./controllers')
-const multipart= require('connect-multiparty')
+const controllers = require("./backend/controllers")
+const multipart=require('connect-multiparty')
 const bodyParser = require('body-parser')
-
+//const path=require('path');
 const app = express() 
 const multipartMiddleware=multipart()
 
@@ -14,7 +14,7 @@ var socketio = require('socket.io')
 const server = http.createServer(app)
 const io = socketio(server)
 // --------------------
-const PORT = 8000
+//const PORT = 8000
 
 
  // body parser
@@ -112,10 +112,16 @@ io.on('connection', (socket)=> {
 // ----------------------------------------
 
 
+if (process.env.NODE_ENV === "production") {
+    app.use(express.static("frontend/build")); // serve the static react app
+    app.get(/^\/(?!api).*/, (req, res) => {
+      // don't serve api routes to react app
+      res.sendFile(path.join(__dirname, "./frontend/build/index.html"));
+    });
+    console.log("Serving React App...");
+  }
 
 
 
 // app -> server
-server.listen(PORT, ()=>{
-    console.log(`server running on port ${PORT}`)
-})
+server.listen(process.env.PORT || 8000);
