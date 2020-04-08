@@ -112,14 +112,14 @@ io.on('connection', (socket)=> {
 // ----------------------------------------
 
 
-if (process.env.NODE_ENV === "production") {
-    app.use(express.static("frontend/build")); // serve the static react app
-    app.get(/^\/(?!api).*/, (req, res) => {
-      // don't serve api routes to react app
-      res.sendFile(path.join(__dirname, "./frontend/build/index.html"));
-    });
-    console.log("Serving React App...");
-  }
+// if (process.env.NODE_ENV === "production") {
+//     app.use(express.static("frontend/build")); // serve the static react app
+//     app.get(/^\/(?!api).*/, (req, res) => {
+//       // don't serve api routes to react app
+//       res.sendFile(path.join(__dirname, "./frontend/build/index.html"));
+//     });
+//     console.log("Serving React App...");
+//   }
 
 
 
